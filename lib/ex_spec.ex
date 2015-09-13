@@ -75,4 +75,13 @@ defmodule ExSpec do
       ExUnit.Case.test(full_message, unquote(var), unquote(body))
     end
   end
+
+  defmacro let(var, [do: body]) do
+    quote do
+      setup c do
+        result = (unquote body)
+        {:ok, put_in(c[unquote var], result)}
+      end
+    end
+  end
 end

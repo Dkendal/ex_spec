@@ -28,4 +28,24 @@ defmodule ExSpecTest do
       end
     end
   end
+
+  describe "lets" do
+    context "a context" do
+      let :value, do: "is available"
+      let :another_value, do: "is also available"
+
+      it "is equivalent to a setup", c do
+        assert c.value == "is available"
+        assert c.another_value == "is also available"
+      end
+    end
+
+    @tag :dont_run_me
+    context "another context" do
+      it  "does not leak into other contexts", c do
+        assert c.value == nil
+        assert c.another_value == nil
+      end
+    end
+  end
 end
